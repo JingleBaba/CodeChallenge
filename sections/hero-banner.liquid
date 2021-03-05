@@ -1,4 +1,4 @@
-{% if section.settings.banner_heading != '' or section.settings.text_alignment != "select" %}
+{% if section.settings.banner_heading != '' and section.settings.text_alignment != "select" %}
 <div class="home-banner">
   <div class="home-banner__container">
     <div class="home-banner__contentWrap">
@@ -12,7 +12,7 @@
       </div>
       <div class="home-banner__textContent">
         <h1 class="hero__title">{{section.settings.banner_heading}}</h1>
-        {% if section.settings.banner_text %}
+        {% if section.settings.banner_text != '' %}
         	<p class="hero__text">{{section.settings.banner_text}}</p>
         {% endif %}
         {% if section.settings.cta_text != '' %}
@@ -202,10 +202,10 @@
 }
 
 a.hero__cta:hover{
- {% if section.settings.cta_hover_color %}
+ {% if section.settings.cta_hover_color != '' %}
     color : {{section.settings.cta_hover_color}};
   {% endif %}
-  {% if section.settings.cta_hover_background_color %}
+  {% if section.settings.cta_hover_background_color != '' %}
     background: {{section.settings.cta_hover_background_color}}
   {% endif %}
 }
