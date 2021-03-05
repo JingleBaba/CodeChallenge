@@ -62,13 +62,17 @@ $secondaryColor : #57AD68;
         text-transform: capitalize;
         margin-bottom: 30px;
         @media(max-width: 749px){
-          margin-bottom: 40px;
+          margin-bottom: 35px;
+          font-size: $mobileheadingSize;
         }
       }
       .hero__text{
         font-size: $textSize;
         font-weight: $primaryFontWeight;
         line-height:35px;
+        @media(max-width: 749px){
+          font-size:$mobileTextSize
+        }
       }
       .hero__cta{
         font-size: 20px;
@@ -84,8 +88,8 @@ $secondaryColor : #57AD68;
         margin-top: 25px;
         @media(max-width: 749px){
           width: 75%;
-          margin-top: 35px;
-          padding: 20px;
+          margin-top: 30px;
+          padding: 18px;
         }
       }
     }
