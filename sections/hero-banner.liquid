@@ -1,0 +1,216 @@
+{% if section.settings.banner_heading != '' or section.settings.text_alignment != "select" %}
+<div class="home-banner">
+  <div class="home-banner__container">
+    <div class="home-banner__contentWrap">
+      <div class="home-banner__image">
+        {% if section.settings.desktop_banner %}
+         <img class="hide-mobile" src="{{section.settings.desktop_banner | img_url : 'master' }}" alt="hero-image" />
+        {% endif %}
+        {% if section.settings.mobile_banner %}
+        	<img class="hide-desktop" src="{{section.settings.mobile_banner | img_url : 'master' }}" alt="hero-image" />
+        {% endif %}
+      </div>
+      <div class="home-banner__textContent">
+        <h1 class="hero__title">{{section.settings.banner_heading}}</h1>
+        {% if section.settings.banner_text %}
+        	<p class="hero__text">{{section.settings.banner_text}}</p>
+        {% endif %}
+        {% if section.settings.cta_text != '' %}
+        	<a {% if section.settings.cta_link != '' %}href="{{section.settings.cta_link}}" {% endif %} class="hero__cta">{{section.settings.cta_text}}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+"name": "Hero Banner",
+"settings": [
+  {
+    "type" :"header",
+    "content" :"Update Banner Image"
+  },
+ {
+   "type" : "image_picker",
+   "id" : "desktop_banner",
+   "label" :"Select Desktop Banner Image",
+   "info" : "1440 * 500px .jpg/.png recommended"
+ },
+ {
+   "type" : "image_picker",
+   "id" : "mobile_banner",
+   "label" :"Select Desktop Banner Image",
+   "info" : "360 * 640px .jpg/.png recommended"
+ },
+  {
+    "type" :"header",
+    "content" :"Background Color"
+  },
+ {
+   "type" : "color",
+   "id" : "background_color",
+   "label" :"Select background Color",
+   "info" :"Remove banner images to use background color instead"
+ },
+ {
+  "type" :"header",
+  "content" :"Heading Section"
+ },
+ {
+   "type" : "text",
+   "id" : "banner_heading",
+   "label" :"Enter Banner Heading",
+   "info" : "This field is required"
+ },
+ {
+   "type" : "color",
+   "id" : "heading_color",
+   "label" :"Select Heading Color"
+ },
+ {
+  "type" :"header",
+  "content" :"Heading Section"
+ },
+  {
+  "type": "select",
+  "id": "text_alignment",
+  "options": [
+    {"value" : "select" , "label" :"Select Alignment" },
+    { "value": "left", "label": "Left"},
+    { "value": "center", "label": "Center"},
+    { "value": "right", "label": "Right"}
+   ],
+    "label": "Select Text Alignment",
+    "info" : "This field is required"
+  },
+ {
+  "type" :"header",
+  "content" :"Text Section"
+ },
+ {
+   "type" : "textarea",
+   "id" : "banner_text",
+   "label" :"Enter Text"
+ },
+ {
+   "type" : "color",
+   "id" : "text_color",
+   "label" :"Select Text Color"
+ },
+ {
+  "type" :"header",
+  "content" :"CTA Section"
+ },
+ {
+   "type" : "textarea",
+   "id" : "cta_text",
+   "label" :"Enter CTA Text"
+ },
+ {
+   "type" : "url",
+   "id" : "cta_link",
+   "label" :"Enter CTA URL"
+ },
+ {
+   "type" : "color",
+   "id" : "cta_color",
+   "label" :"Select CTA Color"
+ },
+ {
+   "type" : "color",
+   "id" : "cta_background_color",
+   "label" :"Select CTA Background Color"
+ },
+ {
+   "type" : "color",
+   "id" : "cta_hover_color",
+   "label" :"Select Hover CTA Color"
+ },
+ {
+   "type" : "color",
+   "id" : "cta_hover_background_color",
+   "label" :"Select  Hover Background CTA Color"
+ }
+],
+ "presets": [
+   {
+     "name" : {"en" : "Hero Banner"},
+     "category" : {"en" : "Image With Text Overlay"}
+   }
+  ]
+}
+{% endschema %}
+
+<style>
+ {% unless section.settings.desktop_banner %}
+  .home-banner{ 
+    {% if section.settings.background_color != ''  %}
+    	background-color: {{section.settings.background_color}};
+    {% else %}
+    	background-color: transparent;
+    {% endif %}
+  }
+  .home-banner__image{
+    min-height: 474px;
+  }
+  @media(max-width: 749px){
+    .home-banner__image{
+      min-height: 742px;
+    }
+  }
+  {% endunless %}
+.home-banner__textContent{
+  transform: translateY(-50%);
+  margin: 0 80px;
+ {% if section.settings.text_alignment == "left" %}
+   left:0;
+   text-align: left;
+  {% elsif section.settings.text_alignment == "right" %}
+   right:0;
+   text-align: left;
+  {% else %}
+    left: 50%;
+    margin:0;
+    transform: translate(-50%,-50%);
+    text-align: center;
+ {% endif %}
+}
+
+
+.hero__title{
+ {% if section.settings.heading_color != '' %}
+   color: {{section.settings.heading_color}};
+ {% endif %}
+}
+
+.hero__text{
+  {% if section.settings.text_color != '' %}
+   color: {{section.settings.text_color}};
+  {% endif %}
+}
+
+.hero__cta{
+ {% if section.settings.cta_color != '' %}
+    color : {{section.settings.cta_color}};
+  {% endif %}
+
+  {% if section.settings.cta_background_color != '' %}
+    background: {{section.settings.cta_background_color}}
+  {% endif %}
+}
+
+a.hero__cta:hover{
+ {% if section.settings.cta_hover_color %}
+    color : {{section.settings.cta_hover_color}};
+  {% endif %}
+  {% if section.settings.cta_hover_background_color %}
+    background: {{section.settings.cta_hover_background_color}}
+  {% endif %}
+}
+
+</style>
+
+{% javascript %}
+{% endjavascript %}
